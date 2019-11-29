@@ -14,7 +14,7 @@
     height: 100%;
     overflow: hidden;
   }
-  #btn {
+  .btn {
     width: 80px;
     height: 80px;
     position: absolute;
@@ -36,18 +36,27 @@
 </style>
 </head>
 <body>
-  <div id="btn">播放</div>
+  <div id="btn" class="btn">播放</div>
   <div id="box"></div>
 </body>
 <script src="./video.js"></script>
 <script type="text/javascript">
-    const video = new mobVideo('box', 'btn', './images/video.mp4', './images/loading.png', true);
-    video.init(function () {
-      console.log('视频加载完成')
+    const qwe = new mobVideo({
+      el: 'box',
+      videoUrl: './images/video.mp4',
+      imageUrl: './images/loading.png',
+      audioUrl: 'https://www.runoob.com/try/demo_source/horse.ogg'
+    }).init(function (config) {
+      document.getElementById('btn').onclick = function () {
+        config.play()
+      }
+    }, function (config) {
+      console.log('播放了')
+    }, function (config, time) {
+      console.log(time)
     }, function () {
-      document.getElementById('btn').style.display = 'none'
-    }, function () {
-      console.log('视频播放完成')
+      console.log('结束了')
     })
+
 </script>
 </html>
